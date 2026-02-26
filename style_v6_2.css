@@ -1,0 +1,273 @@
+:root {
+    --primary-color: #00DDFF;
+    --accent-color: #FF0055;
+    --bg-dark: #0a0a0a;
+    --panel-bg: #111111;
+    --text-color: #ffffff;
+    --border-radius: 8px;
+    --sidebar-width: 300px;
+}
+
+body {
+    margin: 0;
+    overflow: hidden;
+    font-family: 'Inter', sans-serif;
+    background: var(--bg-dark);
+    color: var(--text-color);
+    height: 100vh;
+}
+
+/* --- HAUPT LAYOUT (GRID) --- */
+#studio-container {
+    display: grid;
+    grid-template-columns: var(--sidebar-width) 1fr var(--sidebar-width);
+    height: 100vh;
+    width: 100vw;
+}
+
+/* --- SIDEBARS --- */
+.sidebar {
+    background-color: var(--panel-bg);
+    border-right: 1px solid #222;
+    border-left: 1px solid #222;
+    padding: 20px;
+    overflow-y: auto;
+    display: flex;
+    flex-direction: column;
+    z-index: 20; /* Höherer Z-Index für Klickbarkeit */
+}
+
+.panel-header h2 {
+    font-size: 1.2rem;
+    margin-top: 0;
+    margin-bottom: 20px;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    border-bottom: 1px solid #333;
+    padding-bottom: 10px;
+}
+
+section { margin-bottom: 25px; }
+
+h3 {
+    font-size: 0.75rem;
+    color: #666;
+    text-transform: uppercase;
+    margin-bottom: 10px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    cursor: pointer;
+    user-select: none;
+}
+h3 i { color: var(--primary-color); }
+
+/* --- MITTE (STAGE) --- */
+#main-stage {
+    background-color: #050505;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+    padding: 20px;
+    /* Schachbrettmuster für Profi-Look */
+    background-image: radial-gradient(#1a1a1a 1px, transparent 1px);
+    background-size: 20px 20px;
+    z-index: 1;
+}
+
+/* Der Rahmen für das Canvas (16:9) */
+.canvas-wrapper {
+    width: 100%;
+    max-width: 1280px;
+    aspect-ratio: 16 / 9;
+    box-shadow: 0 0 50px rgba(0, 0, 0, 0.8);
+    border: 1px solid #333;
+    background: black;
+    position: relative; /* Wichtig! */
+    overflow: hidden;
+}
+
+/* Das Canvas selbst - HIER WAR DER FEHLER */
+#visualizer-canvas {
+    width: 100%;
+    height: 100%;
+    display: block;
+    position: absolute; /* Muss absolut im Wrapper sein */
+    top: 0;
+    left: 0;
+    /* KEIN position: fixed mehr! */
+}
+
+/* --- TRANSPORT BAR --- */
+#transport-bar {
+    margin-top: 20px;
+    background: #111;
+    padding: 10px 25px;
+    border-radius: 50px;
+    border: 1px solid #333;
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    box-shadow: 0 5px 20px rgba(0, 0, 0, 0.5);
+    z-index: 30;
+}
+
+.transport-btn {
+    background: none;
+    border: none;
+    color: white;
+    font-size: 1.2rem;
+    cursor: pointer;
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: 0.2s;
+}
+.transport-btn:hover { background: #333; color: var(--primary-color); }
+
+.record-btn-modern {
+    background: var(--accent-color);
+    width: auto;
+    padding: 0 20px;
+    border-radius: 20px;
+    font-size: 0.9rem;
+    font-weight: bold;
+    color: white;
+    gap: 8px;
+}
+.record-btn-modern:hover { background: #ff3366; }
+.record-btn-modern.recording { background: white; color: red; animation: pulse 1s infinite; }
+
+@keyframes pulse { 0% { opacity: 1; } 50% { opacity: 0.5; } 100% { opacity: 1; } }
+
+#rec-status { margin-top: 10px; color: #555; font-size: 0.8rem; }
+
+/* --- UI ELEMENTS --- */
+label { display: block; margin-bottom: 10px; font-size: 0.8rem; color: #ccc; }
+.split-row { display: flex; gap: 10px; }
+
+input[type="text"] {
+    width: 100%; padding: 8px; background: #222; border: 1px solid #333;
+    border-radius: 4px; color: white; margin-top: 4px; box-sizing: border-box;
+}
+input[type="text"]:focus { border-color: var(--primary-color); outline: none; }
+
+/* File Input Buttons */
+.file-input-label {
+    background: #222; padding: 10px; border-radius: 6px; border: 1px dashed #444;
+    cursor: pointer; display: flex; align-items: center; margin-bottom: 8px; transition: 0.2s;
+}
+.file-input-label:hover { border-color: #666; background: #2a2a2a; }
+.file-input-label i { margin-right: 10px; width: 20px; text-align: center; }
+input[type="file"] { display: none; }
+
+/* Sliders */
+input[type="range"] { width: 100%; margin-top: 5px; -webkit-appearance: none; appearance: none; background: transparent; cursor: pointer; }
+input[type="range"]::-webkit-slider-runnable-track { width: 100%; height: 4px; background: #333; border-radius: 2px; }
+input[type="range"]::-webkit-slider-thumb {
+    height: 12px; width: 12px; border-radius: 50%; background: var(--primary-color);
+    margin-top: -4px; -webkit-appearance: none; appearance: none;
+}
+
+/* Select */
+select { width: 100%; padding: 10px; background: #222; border: 1px solid #333; color: white; border-radius: 4px; outline: none; }
+select option { background: #111; color: white; padding: 10px; }
+
+/* Colors */
+.color-picker-group { display: flex; gap: 5px; background: #222; padding: 8px; border-radius: 6px; }
+.color-picker-group div { display: flex; flex-direction: column; align-items: center; width: 100%; }
+.color-picker-group span { font-size: 0.6rem; color: #777; margin-bottom: 4px; }
+input[type="color"] { -webkit-appearance: none; appearance: none; border: none; width: 100%; height: 25px; background: none; cursor: pointer; }
+
+/* Scrollbar */
+::-webkit-scrollbar { width: 5px; }
+::-webkit-scrollbar-track { background: #111; }
+::-webkit-scrollbar-thumb { background: #333; border-radius: 2px; }
+
+/* --- V5 additions --- */
+.reset-btn {
+    width: 100%;
+    margin-top: 10px;
+    padding: 10px 12px;
+    border-radius: 10px;
+    border: 1px solid #333;
+    background: #1a1a1a;
+    color: #eee;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    transition: 0.2s;
+}
+
+.reset-btn:hover {
+    background: #222;
+    color: var(--primary-color);
+    border-color: #444;
+}
+/* --- V6 additions --- */
+
+/* Collapsible sections */
+.sidebar section h3::after{
+    content: '▾';
+    margin-left: auto;
+    color: #444;
+    font-size: 0.9rem;
+}
+.sidebar section.collapsed h3::after{
+    content: '▸';
+}
+.sidebar section.collapsed > :not(h3){
+    display:none;
+}
+
+/* Toggle rows (Still vs Pulse) */
+.toggle-row{
+    display:flex;
+    align-items:center;
+    gap:8px;
+    font-size:0.75rem;
+    color: var(--primary-color);
+}
+.toggle-row input[type="checkbox"]{
+    width: 14px;
+    height: 14px;
+    accent-color: var(--primary-color);
+}
+
+/* Beat indicator */
+.beat-indicator-row{
+    display:flex;
+    align-items:center;
+    gap:8px;
+    margin: 8px 0 10px 0;
+    font-size: 0.75rem;
+    color: #aaa;
+}
+.beat-indicator{
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+    background: #2b2b2b;
+    display:inline-block;
+    box-shadow: 0 0 0 rgba(0,0,0,0);
+    transition: 80ms;
+}
+.beat-indicator.on{
+    background: var(--accent-color);
+    box-shadow: 0 0 12px rgba(255,0,85,0.85);
+}
+
+/* Small divider (transport bar) */
+.divider{
+    width:1px;
+    height:28px;
+    background:#333;
+    opacity:0.7;
+}

@@ -1,0 +1,263 @@
+<!DOCTYPE html>
+<html lang="de">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ultimate Visualizer Studio V6</title>
+    
+    <link rel="stylesheet" href="style_v6_2.css">
+    
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+    
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+
+<body>
+
+    <div id="studio-container">
+
+        <aside id="sidebar-left" class="sidebar">
+            <div class="panel-header">
+                <h2>Media <span style="color:#FF0055;">Input</span></h2>
+            </div>
+
+            <section>
+                <h3><i class="fas fa-photo-video"></i> Dateien</h3>
+                
+                <label class="file-input-label">
+                    <i class="fas fa-music"></i> Audio (.mp3)
+                    <input type="file" id="audio-upload" accept="audio/*">
+                </label>
+                <div class="control-group" style="margin-top:12px;">
+                    <label style="display:block; margin-bottom:6px; opacity:0.9;">Recording FPS</label>
+                    <select id="rec-fps">
+                        <option value="30">30 FPS (empfohlen)</option>
+                        <option value="60" selected>60 FPS</option>
+                    </select>
+
+                    <label style="display:block; margin:10px 0 6px; opacity:0.9;">Codec</label>
+                    <select id="rec-codec">
+                        <option value="auto">Auto</option>
+                        <option value="vp8">VP8 (schnell / stabil)</option>
+                        <option value="vp9" selected>VP9 (HQ / langsamer)</option>
+                    </select>
+
+                    <label style="display:block; margin:10px 0 6px; opacity:0.9;">Bitrate</label>
+                    <select id="rec-bitrate">
+                        <option value="6000000">6 Mbps</option>
+                        <option value="8000000">8 Mbps (empfohlen)</option>
+                        <option value="12000000" selected>12 Mbps (HQ)</option>
+                    </select>
+
+                    <label class="toggle-row" style="margin-top:10px; color:#00DDFF;">
+                        <input type="checkbox" id="rec-performance">
+                        <span>Performance-Aufnahme (DPR=1, Codec=Auto→VP8)</span>
+                    </label>
+                </div>
+
+                
+                <label class="file-input-label">
+                    <i class="fas fa-image"></i> Hintergrund
+                    <input type="file" id="bg-image-upload" accept="image/*">
+                </label>
+                
+                <div style="background:rgba(255,255,255,0.05); padding:10px; border-radius:8px; margin-bottom:10px;">
+                    <div style="font-size:0.75rem; color:#00DDFF; margin-bottom:5px; display:flex; align-items:center; gap:5px;">
+                        <i class="fas fa-hand-paper"></i> 
+                        <span><b>Drag & Drop:</b> Ziehe Hintergrund, Logo oder Text einfach mit der Maus!</span>
+                    </div>
+                    <label class="toggle-row" style="margin-top:6px;">
+                        <input type="checkbox" id="bg-react-check" checked>
+                        <span>Hintergrund reagiert? (Pulse)</span>
+                    </label>
+                    <label>Hintergrund Zoom
+                        <input type="range" id="bg-scale-slider" min="0.1" max="5.0" step="0.01" value="1.0">
+                    </label>
+<label>BG React Zoom: <span id="bg-react-zoom-value">0.35</span>
+    <input type="range" id="bg-react-zoom-slider" min="0" max="1.5" step="0.01" value="0.35">
+</label>
+<label>BG Color React: <span id="bg-react-color-value">0.25</span>
+    <input type="range" id="bg-react-color-slider" min="0" max="1.0" step="0.01" value="0.25">
+</label>
+<label>BG Distort: <span id="bg-distort-value">0</span>px
+    <input type="range" id="bg-distort-slider" min="0" max="80" step="1" value="0">
+</label>
+<label>Trail / Afterglow: <span id="trail-value">0.12</span>
+    <input type="range" id="trail-slider" min="0" max="0.30" step="0.01" value="0.12">
+</label>
+<label>Beat Trigger: <span id="beat-sens-value">1.3</span>x
+    <input type="range" id="beat-sens-slider" min="1.0" max="2.0" step="0.01" value="1.3">
+</label>
+                    <div class="beat-indicator-row" title="Leuchtet, wenn ein Beat erkannt wird">
+                        <span class="beat-indicator-label">Beat:</span>
+                        <span id="beat-indicator" class="beat-indicator" aria-label="Beat erkannt"></span>
+                    </div>
+                    <button type="button" id="reset-layout" class="reset-btn"><i class="fas fa-undo"></i> Reset Layout</button>
+                </div>
+
+                <label class="file-input-label">
+                    <i class="fas fa-star"></i> Logo / Wasserzeichen
+                    <input type="file" id="center-logo-upload" accept="image/*">
+                </label>
+                <label class="toggle-row" style="margin-top:5px;">
+                    <input type="checkbox" id="logo-react-check" checked>
+                    <span>Logo reagiert? (Pulse)</span>
+                </label>
+                <label>Logo Deckkraft: <span id="logo-opacity-value">100</span>%
+                    <input type="range" id="logo-opacity-slider" min="0" max="100" value="100">
+                </label>
+                <label>Logo Größe: <span id="logo-size-value">560</span>px
+                    <input type="range" id="logo-size-slider" min="50" max="1500" step="10" value="560">
+                </label>
+            </section>
+
+            <section>
+                <h3><i class="fas fa-font"></i> Text Overlay</h3>
+                <label>Song Titel:
+                    <input type="text" id="song-title" placeholder="Titel...">
+                </label>
+                <label>Künstler:
+                    <input type="text" id="song-artist" placeholder="Artist...">
+                </label>
+                <div class="split-row">
+                    <label>Titel Größe: <span id="title-size-value">60</span>
+                        <input type="range" id="title-size-slider" min="10" max="150" value="60">
+                    </label>
+                    <label>Artist Größe: <span id="artist-size-value">30</span>
+                        <input type="range" id="artist-size-slider" min="10" max="100" value="30">
+                    </label>
+                </div>
+                <div class="split-row" style="margin-top:4px;">
+                    <label class="toggle-row" style="flex:1; margin:0;">
+                        <input type="checkbox" id="title-react-check" checked>
+                        <span>Titel reagiert?</span>
+                    </label>
+                    <label class="toggle-row" style="flex:1; margin:0;">
+                        <input type="checkbox" id="artist-react-check" checked>
+                        <span>Artist reagiert?</span>
+                    </label>
+                </div>
+                <!-- Position Y Slider entfernt: Text ist per Drag & Drop frei platzierbar -->
+                <div class="color-picker-group">
+                    <div style="flex:1"><span>Titel</span><input type="color" id="title-color" value="#FFFFFF"></div>
+                    <div style="flex:1"><span>Artist</span><input type="color" id="artist-color" value="#FFFF00"></div>
+                </div>
+            </section>
+
+            <section>
+                <h3><i class="fas fa-magic"></i> Partikel</h3>
+                <label class="file-input-label">
+                    <i class="fas fa-snowflake"></i> Eigenes Bild
+                    <input type="file" id="particle-image-upload" accept="image/*">
+                </label>
+                <label>Menge: <span id="particle-count-value">50</span>
+                    <input type="range" id="particle-count-slider" min="0" max="200" value="50">
+                </label>
+                <label>Speed: <span id="particle-speed-value">1.0</span>
+                    <input type="range" id="particle-speed-slider" min="0.1" max="5.0" step="0.1" value="1.0">
+                </label>
+                <label>Größe: <span id="particle-size-value">3</span>
+                    <input type="range" id="particle-size-slider" min="1" max="50" value="3">
+                </label>
+                <label>Farbe:
+                    <input type="color" id="particle-color" value="#00DDFF">
+                </label>
+            </section>
+        </aside>
+
+
+        <main id="main-stage">
+            <div class="canvas-wrapper">
+                <canvas id="visualizer-canvas" width="1920" height="1080"></canvas>
+            </div>
+
+            <div id="transport-bar">
+                <button id="btn-play" class="transport-btn" title="Play"><i class="fas fa-play"></i></button>
+                <button id="btn-pause" class="transport-btn" title="Pause"><i class="fas fa-pause"></i></button>
+                <button id="btn-stop" class="transport-btn" title="Stop"><i class="fas fa-stop"></i></button>
+                <div class="divider"></div>
+                <button id="toggle-recording" class="transport-btn record-btn-modern">
+                    <i class="fas fa-circle"></i> REC
+                </button>
+            </div>
+            <p id="rec-status">Bereit zur Aufnahme</p>
+        </main>
+
+
+        <aside id="sidebar-right" class="sidebar">
+    <div class="panel-header">
+        <h2>Visual <span style="color:#00DDFF;">Style</span></h2>
+    </div>
+
+    <section>
+        <h3><i class="fas fa-palette"></i> Farben (Tricolor)</h3>
+        <div class="color-picker-group">
+            <div style="flex:1"><span>Start</span><input type="color" id="start-color" value="#FF0000"></div>
+            <div style="flex:1"><span>Mitte</span><input type="color" id="mid-color" value="#FFFF00"></div>
+            <div style="flex:1"><span>Ende</span><input type="color" id="end-color" value="#0000FF"></div>
+        </div>
+        <label style="margin-top:10px;">Hintergrundfarbe
+            <input type="color" id="bg-color" value="#000000">
+        </label>
+    </section>
+
+    <section>
+        <h3><i class="fas fa-wave-square"></i> Modus</h3>
+        <select id="mode-select">
+            <optgroup label="KREIS">
+                <option value="radial-bars">Kreis (Balken)</option>
+                                <option value="radial-inout">Kreis (In+Out Balken) ✨</option>
+<option value="radial-lines">Kreis (Feine Linien) ✨</option>
+                                <option value="arc-eq">Arc EQ (Halbkreis) ✨</option>
+<option value="points-circle">Kreis (Punkte) ✨</option>
+                <option value="concentric-rings">Wellen-Ringe (Radar) ✨</option>
+            </optgroup>
+            <optgroup label="LINEAR">
+                <option value="linear-bars">Klassisch (Balken)</option>
+                <option value="mirrored-bars">Gespiegelt (Mitte)</option>
+                            <option value="log-bars">Log EQ (96 Bänder) ✨</option>
+                <option value="led-bars">LED EQ (96 Bänder + Peak) ✨</option>
+                <option value="area-spectrum">Fläche (Area Spectrum 96) ✨</option>
+</optgroup>
+            <optgroup label="SONSTIGE">
+                <option value="wave">Wellenform (Linie)</option>
+                            <option value="waterfall">Waterfall (Spectrogram) ✨</option>
+                <option value="vectorscope">Stereo Scope (Lissajous) ✨</option>
+</optgroup>
+        </select>
+        <label style="margin-top: 15px;">Neon Glow: <span id="glow-value">0</span>px
+            <input type="range" id="glow-slider" min="0" max="50" value="0">
+        </label>
+    </section>
+
+    <section>
+        <h3><i class="fas fa-ruler-combined"></i> Geometrie</h3>
+        <label>Detailgrad (Auflösung): <span id="fft-size-label">Standard (256)</span>
+            <input type="range" id="fft-size-slider" min="0" max="5" step="1" value="2">
+        </label>
+        <label>Glättung: <span id="smooth-value">0.60</span>
+            <input type="range" id="smoothing-slider" min="0" max="0.95" step="0.01" value="0.60">
+        </label>
+        <label>Spektrum Radius: <span id="radius-value">250</span>
+            <input type="range" id="radius-slider" min="50" max="500" value="250">
+        </label>
+        <label>Spektrum Größe: <span id="zoom-value">1.0</span>x
+            <input type="range" id="zoom-slider" min="0.1" max="3.0" step="0.01" value="1.0">
+        </label>
+        <label>Audio Boost: <span id="sensitivity-value">1.2</span>
+            <input type="range" id="sensitivity-slider" min="0.1" max="3.0" step="0.05" value="1.2">
+        </label>
+        <label>Balken Breite: <span id="bar-width-value">4</span>
+            <input type="range" id="bar-width-slider" min="1" max="100" value="4">
+        </label>
+        <label>Abstand: <span id="bar-spacing-value">2</span>
+            <input type="range" id="bar-spacing-slider" min="0" max="20" value="2">
+        </label>
+    </section>
+</aside>
+
+    </div> <script src="script_v6_2.js"></script>
+</body>
+
+</html>
