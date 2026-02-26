@@ -27,6 +27,14 @@ Einfach `index.html` im Browser öffnen – fertig. Keine Installation, kein Ser
 https://github.com/user-attachments/assets/c2846499-0d50-4271-9226-4ec024c55c62
 
 
+https://github.com/user-attachments/assets/fe066e2b-3ba2-4f4b-9044-edbc50b0f77e
+
+
+
+https://github.com/user-attachments/assets/ff12ec13-577e-4f5c-83c2-d3e2d92c73b9
+
+
+
 Jede Woche erstelle ich damit Music-Videos für YouTube.
 
 ---
