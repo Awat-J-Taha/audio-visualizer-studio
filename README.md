@@ -35,7 +35,7 @@ https://github.com/user-attachments/assets/ff12ec13-577e-4f5c-83c2-d3e2d92c73b9
 
 
 
-Jede Woche erstelle ich damit Music-Videos für YouTube.
+Music-Videos für YouTube leicht gemacht.
 
 ---
 *Entwickelt von Awat J. Taha – Kiel, Deutschland*
